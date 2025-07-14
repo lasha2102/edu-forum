@@ -19,8 +19,6 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-with app.app_context():
-    db.create_all()
 # ------------------------ MODELS ------------------------ #
 
 likes = db.Table('likes',
@@ -182,4 +180,8 @@ def profile(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('profile.html', user=user)
 
+@app.route('/initdb')
+def initdb():
+    db.create_all()
+    return "Database initialized"
 
