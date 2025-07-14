@@ -10,6 +10,7 @@ from flask import render_template, redirect, url_for, flash, request, abort
 from flask_login import login_required, current_user
 from datetime import datetime
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///forum.db'
@@ -18,6 +19,8 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
+with app.app_context():
+    db.create_all()
 # ------------------------ MODELS ------------------------ #
 
 likes = db.Table('likes',
@@ -180,7 +183,3 @@ def profile(username):
     return render_template('profile.html', user=user)
 
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
