@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }} პროფილი - ედუ-ფორუმი{% endblock %}
+
+{% block content %}
+<h2>{{ user.username }} პროფილი</h2>
+
+<h4 class="mt-4">შექმნილი პოსტები</h4>
+{% if user.posts %}
+    {% for post in user.posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a>
+                </h5>
+                <p class="card-text"><small class="text-muted">ღონისძიების თარიღი: {{ post.event_date.strftime('%Y-%m-%d') }}</small></p>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>არც ერთი პოსტი ჯერჯერობით.</p>
+{% endif %}
+
+<h4 class="mt-4">მოწონებული პოსტები</h4>
+{% if user.liked_posts %}
+    {% for post in user.liked_posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a>
+                </h5>
+                <p class="card-text">
+                    <small class="text-muted">ორგანიზატორი {{ post.organization }} on {{ post.event_date.strftime('%Y-%m-%d') }}</small>
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>არც ერთი პოსტი ჯერ-ჯერობით.</p>
+{% endif %}
+
+{% endblock %}

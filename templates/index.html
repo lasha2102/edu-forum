@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - ედუ-ფორუმი{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">მომავალი ღონისძიებები</h1>
+
+{% if posts %}
+    {% for post in posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a>
+                </h4>
+                <p class="card-text">{{ post.content[:150] }}{% if post.content|length > 150 %}...{% endif %}</p>
+                <p class="card-text">
+                    <strong>Category:</strong> {{ post.category | capitalize }} | 
+                    <strong>Organizer:</strong> {{ post.organization }} | 
+                    <strong>Location:</strong> {{ post.location }} | 
+                    <strong>Date:</strong> {{ post.event_date.strftime('%Y-%m-%d') }}
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">დაპოსტილ იქნა <a href="{{ url_for('profile', username=post.user.username) }}">{{ post.user.username }}</a></small>
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>არც ერთი ღონისძიება ჯერ-ჯერობით. იყავი პირველი</p>
+{% endif %}
+
+{% endblock %}

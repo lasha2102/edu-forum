@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}ახალი პოსტი - ედუ-ფორუმი{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">ახალი პოსტის შექმნა</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.title.label(class="form-label") }}
+        {{ form.title(class="form-control") }}
+        {% for error in form.title.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.content.label(class="form-label") }}
+        {{ form.content(class="form-control", rows=5) }}
+        {% for error in form.content.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.event_date.label(class="form-label") }}
+        {{ form.event_date(class="form-control") }}
+        {% for error in form.event_date.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.location.label(class="form-label") }}
+        {{ form.location(class="form-control") }}
+        {% for error in form.location.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.organization.label(class="form-label") }}
+        {{ form.organization(class="form-control") }}
+        {% for error in form.organization.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.category.label(class="form-label") }}
+        {{ form.category(class="form-select") }}
+        {% for error in form.category.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-success">{{ form.submit.label.text }}</button>
+</form>
+{% endblock %}
